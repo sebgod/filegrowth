@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Tests
+namespace FileGrowthService.Tests
 {
     public class Tests
     {

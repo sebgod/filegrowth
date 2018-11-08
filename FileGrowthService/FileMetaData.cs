@@ -1,4 +1,4 @@
-namespace FileGrowth.Services
+namespace FileGrowthService
 {
     public class FileMetaData
     {

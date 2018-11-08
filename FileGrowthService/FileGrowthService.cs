@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FileGrowth.Services
+namespace FileGrowthService
 {
     public interface IFileGrowthService
     {
-        void UpdateFileList(IEnumerable<FileMetaData> fileList);
+        IEnumerable<FileMetaData> FileList { get; }
 
-        FileMetaData GetFileMetaData(int fileID);
-
-        void UpdateFileStats(IEnumerable<FileStats> fileStats);
+        IReadOnlyDictionary<int, FileStats> FileStats { get; }
     }
 }
