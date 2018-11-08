@@ -16,6 +16,8 @@ namespace FileGrowthService.App
         {
             ConfigureServices(serviceCollection);
             Services = serviceCollection.BuildServiceProvider();
+
+            var fileGrowthService = Services.GetRequiredService<IFileGrowthService>();
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
