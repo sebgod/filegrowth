@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using FileGrowthService;
 using FileGrowthService.Csv;
 using Microsoft.Extensions.Configuration;
@@ -16,15 +17,26 @@ namespace FileGrowthService.App
         {
             ConfigureServices(serviceCollection);
             Services = serviceCollection.BuildServiceProvider();
+        }
 
-            var fileGrowthService = Services.GetRequiredService<IFileGrowthService>();
+        public void ProcessFiles()
+        {
+            var fileGrowthReader = Services.GetRequiredService<IFileGrowthReaderProvider>();
+            var fileGrowthWriter = Services.GetRequiredService<IFileGrowthWriterProvider>();
+
+            foreach (var kv in fileGrowthReader.FileMap.OrderBy(p => p.Key))
+            {
+                var fileSizeStats = fileGrowthReader.FileSizeStatsMap[kv.Key];
+                fileGrowthWriter.WriteDenormalisedFileGrowthStats(kv.Value, fileSizeStats, null);
+            }
         }
 
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection
                 .AddSingleton<IConfiguration>(BuildConfiguration())
-                .AddSingleton<IFileGrowthService, FileGrowthCsvProvider>();
+                .AddSingleton<IFileGrowthReaderProvider, FileGrowthCsvReaderProvider>()
+                .AddSingleton<IFileGrowthWriterProvider, FileGrowthCsvWriterProvider>();
         }
 
         static IReadOnlyDictionary<string, string> DefaultConfigurationStrings { get; } =

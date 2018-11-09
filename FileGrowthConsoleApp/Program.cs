@@ -13,9 +13,8 @@ namespace FileGrowthConsoleApp
         {
             IServiceCollection serviceCollection = new ServiceCollection();
             var application = new Application(serviceCollection);
-            var configuration = application.Services.GetRequiredService<IConfiguration>();
 
-            Console.WriteLine($"Hello World! {configuration["FileIDName"]}");
+            application.ProcessFiles();
         }
     }
 }

@@ -5,14 +5,14 @@ namespace FileGrowthService
     /// </summary>
     public struct FileMetaData
     {
-        public FileMetaData(int fileID, string filePath)
+        public FileMetaData(int fileID, string name)
         {
             FileID = fileID;
-            FilePath = filePath;
+            Name = name;
         }
 
         public int FileID { get; }
 
-        public string FilePath { get; }
+        public string Name { get; }
     }
 }
