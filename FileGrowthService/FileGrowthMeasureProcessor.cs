@@ -4,36 +4,45 @@ using System.Linq;
 
 namespace FileGrowthService
 {
+    using GrowthMap = System.Collections.Generic.Dictionary<DateTime, double>;
+
     public class FileGrowthMeasureProcessor : IFileGrowthMeasureProcessor
     {
+        
         public FileGrowthStats ProcessFile(FileSizeStats stats)
         {
             return stats.Aggregate(
                 (
-                    Timestamp: null as DateTime?,
-                    Size: 0L,
-                    Growth: new Dictionary<DateTime, double>()
+                    timestamp: null as DateTime?,
+                    size: 0L,
+                    growth: new GrowthMap()
                 ), 
-                (pLast, pCurrent) =>
-                    {
-                        var newTimestamp = pCurrent.Key;
-                        var newSize = pCurrent.Value;
-                        if (pLast.Timestamp != null)
-                        {
-                            pLast.Growth[newTimestamp] =
-                                CalcGrowthRate(newTimestamp - pLast.Timestamp.Value, newSize - pLast.Size);
-                        }
-                        return (newTimestamp, newSize, pLast.Growth);
-                    },
-                p => new FileGrowthStats(stats.FileID, p.Growth)
+                ProcessGrowth,
+                p => new FileGrowthStats(stats.FileID, p.growth)
             );
+        }
+
+        
+        public static (DateTime? timestamp, long size, GrowthMap growth) ProcessGrowth(
+            (DateTime? timestamp, long size, GrowthMap growth) last,
+            KeyValuePair<DateTime, long> current)
+        {
+            var newTimestamp = current.Key;
+            var newSize = current.Value;
+            (var lastTimestamp, var lastSize, var growthMap) = last;
+
+            if (lastTimestamp != null)
+            {
+                var deltaTime = newTimestamp - lastTimestamp.Value;
+                var deltaSize = newSize - lastSize;
+                growthMap[newTimestamp] = CalcGrowthRate(deltaTime, deltaSize);
+            }
+            return (newTimestamp, newSize, growthMap);
         }
 
         private static readonly double MSPerHour = (double) TimeSpan.FromHours(1).TotalMilliseconds;
 
         public static double CalcGrowthRate(TimeSpan deltaTime, long deltaDiff)
-        {
-            return deltaDiff * MSPerHour / deltaTime.TotalMilliseconds;
-        }
+            => deltaDiff * MSPerHour / deltaTime.TotalMilliseconds;
     }
 }

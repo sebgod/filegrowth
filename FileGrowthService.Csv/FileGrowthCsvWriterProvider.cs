@@ -47,14 +47,23 @@ namespace FileGrowthService.Csv
             }
         }
 
-        public static string FormatTime(DateTime time)
-        {
-            return time.ToString(@"yyyy-MM-dd HH\:mm\:ss\.fff", CultureInfo.InvariantCulture);
-        }
+        /// <summary>
+        /// Use bankers rounding to round the number to one decimal digit
+        /// </summary>
+        public static double RoundHourlyGrowthRate(double rate)
+            => Math.Round(rate, 1, MidpointRounding.ToEven);
 
+        /// <summary>
+        /// Round the given time in a culture invariant way including date, time and
+        /// milliseconds.
+        /// </summary>
+        public static string FormatTime(DateTime time)
+            => time.ToString(@"yyyy-MM-dd HH\:mm\:ss\.fff", CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Round and format hourly growth rate using digit precision.
+        /// </summary>
         public static string FormatHourlyGrowthRate(double rate)
-        {
-            return Math.Round(rate, 1, MidpointRounding.ToEven).ToString("0.0", CultureInfo.InvariantCulture);
-        }
+            => RoundHourlyGrowthRate(rate).ToString("0.0", CultureInfo.InvariantCulture);
     }
 }
