@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGrowthService", "FileGrowthService\FileGrowthService.csproj", "{AA73AE12-7765-470F-9ED6-E237E8D72985}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGrowthService", "FileGrowthService\FileGrowthService.csproj", "{AA73AE12-7765-470F-9ED6-E237E8D72985}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGrowthService.Tests", "FileGrowthService.Tests\FileGrowthService.Tests.csproj", "{E8D46CBB-12AE-43F5-B66A-2596FCE58F1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGrowthService.Tests", "FileGrowthService.Tests\FileGrowthService.Tests.csproj", "{E8D46CBB-12AE-43F5-B66A-2596FCE58F1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGrowthConsoleApp", "FileGrowthConsoleApp\FileGrowthConsoleApp.csproj", "{C8A74318-F708-4752-A837-93656BE170DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGrowthConsoleApp", "FileGrowthConsoleApp\FileGrowthConsoleApp.csproj", "{C8A74318-F708-4752-A837-93656BE170DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGrowthService.App", "FileGrowthService.App\FileGrowthService.App.csproj", "{B8186B3D-DF19-4BB0-AD63-4B8D386F3ADC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGrowthService.App", "FileGrowthService.App\FileGrowthService.App.csproj", "{B8186B3D-DF19-4BB0-AD63-4B8D386F3ADC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGrowthService.Csv", "FileGrowthService.Csv\FileGrowthService.Csv.csproj", "{DDD45D86-4735-4741-BD6C-FECE686E74BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGrowthService.Csv", "FileGrowthService.Csv\FileGrowthService.Csv.csproj", "{DDD45D86-4735-4741-BD6C-FECE686E74BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGrowthService.Abstractions", "FileGrowthService.Abstractions\FileGrowthService.Abstractions.csproj", "{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D38CB499-7096-4A1B-9E44-563A223F5B05}"
+	ProjectSection(SolutionItems) = preProject
+		Files.csv = Files.csv
+		FileStats.csv = FileStats.csv
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AA73AE12-7765-470F-9ED6-E237E8D72985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -86,5 +91,23 @@ Global
 		{DDD45D86-4735-4741-BD6C-FECE686E74BB}.Release|x64.Build.0 = Release|Any CPU
 		{DDD45D86-4735-4741-BD6C-FECE686E74BB}.Release|x86.ActiveCfg = Release|Any CPU
 		{DDD45D86-4735-4741-BD6C-FECE686E74BB}.Release|x86.Build.0 = Release|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Debug|x64.Build.0 = Debug|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Debug|x86.Build.0 = Debug|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Release|x64.ActiveCfg = Release|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Release|x64.Build.0 = Release|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Release|x86.ActiveCfg = Release|Any CPU
+		{EDD46C3F-7E9F-42D6-9DB0-8C216537D6B2}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D28603CB-532A-4813-B9E4-A605D28907FE}
 	EndGlobalSection
 EndGlobal
