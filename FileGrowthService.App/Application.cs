@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using FileGrowthService;
 using FileGrowthService.Csv;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,12 +41,13 @@ namespace FileGrowthService.App
                 ["FileStatsName"] = "FileStats.csv"
             };
         /// <summary>
-        /// Build the default configuration, based on predefined values and an optional
-        /// config.json file.
+        /// Build the default configuration, based on predefined values and from the environment,
+        /// using the prefix FGS_
         /// </summary>
         private IConfiguration BuildConfiguration() =>
             new ConfigurationBuilder()
                 .AddInMemoryCollection(DefaultConfigurationStrings)
+                .AddEnvironmentVariables(prefix: "FGS_")
                 .Build();
     }
 }

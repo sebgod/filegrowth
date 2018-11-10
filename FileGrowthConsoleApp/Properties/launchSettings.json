@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "FileGrowthConsoleApp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "FGS_WORKINGDIRECTORY": "%cd%\\..\\..\\..\\..\\.."
+      }
+    }
+  }
+}
