@@ -23,9 +23,10 @@ namespace FileGrowthService.App
         {
             serviceCollection
                 .AddSingleton<IConfiguration>(BuildConfiguration())
-                .AddSingleton<IFileGrowthReaderProvider, FileGrowthCsvReaderProvider>()
-                .AddSingleton<IFileGrowthWriterProvider, FileGrowthCsvWriterProvider>()
-                .AddSingleton<IFileGrowthMeasureService, FileGrowthMeasureService>();
+                .AddTransient<IFileGrowthReaderProvider, FileGrowthCsvReaderProvider>()
+                .AddTransient<IFileGrowthWriterProvider, FileGrowthCsvWriterProvider>()
+                .AddTransient<IFileGrowthMeasureProcessor, FileGrowthMeasureProcessor>()
+                .AddTransient<IFileGrowthMeasureService, FileGrowthMeasureService>();
         }
 
         public void ProcessFiles()

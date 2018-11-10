@@ -34,7 +34,11 @@ namespace FileGrowthService.Csv
         {
             var utf8 =  new UTF8Encoding(false);
 
-            using (var textReader = new StreamReader(File.OpenRead(filePath), utf8))
+            using (var fileStream = File.OpenRead(filePath))
+            using (var textReader = new StreamReader(fileStream, utf8,
+                detectEncodingFromByteOrderMarks: false,
+                bufferSize: 10 * 1024,
+                leaveOpen: true))
             using (var csvReader = new CsvReader(textReader, leaveOpen: true))
             {
                 csvReader.Configuration.RegisterClassMap(csvReader.Configuration.AutoMap<T>());
