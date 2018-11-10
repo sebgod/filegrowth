@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FileGrowthService.Abstractions\FileGrowthService.Abstractions.csproj" />
     <ProjectReference Include="..\FileGrowthService.Csv\FileGrowthService.Csv.csproj" />
     <ProjectReference Include="..\FileGrowthService\FileGrowthService.csproj" />
   </ItemGroup>

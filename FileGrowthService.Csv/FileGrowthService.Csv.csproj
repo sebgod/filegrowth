@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\FileGrowthService\FileGrowthService.csproj" />
+    <ProjectReference Include="..\FileGrowthService.Abstractions\FileGrowthService.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

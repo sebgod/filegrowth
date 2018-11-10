@@ -19,24 +19,19 @@ namespace FileGrowthService.App
             Services = serviceCollection.BuildServiceProvider();
         }
 
-        public void ProcessFiles()
-        {
-            var fileGrowthReader = Services.GetRequiredService<IFileGrowthReaderProvider>();
-            var fileGrowthWriter = Services.GetRequiredService<IFileGrowthWriterProvider>();
-
-            foreach (var kv in fileGrowthReader.FileMap.OrderBy(p => p.Key))
-            {
-                var fileSizeStats = fileGrowthReader.FileSizeStatsMap[kv.Key];
-                fileGrowthWriter.WriteDenormalisedFileGrowthStats(kv.Value, fileSizeStats, null);
-            }
-        }
-
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection
                 .AddSingleton<IConfiguration>(BuildConfiguration())
                 .AddSingleton<IFileGrowthReaderProvider, FileGrowthCsvReaderProvider>()
-                .AddSingleton<IFileGrowthWriterProvider, FileGrowthCsvWriterProvider>();
+                .AddSingleton<IFileGrowthWriterProvider, FileGrowthCsvWriterProvider>()
+                .AddSingleton<IFileGrowthMeasureService, FileGrowthMeasureService>();
+        }
+
+        public void ProcessFiles()
+        {
+            var measureService = Services.GetRequiredService<IFileGrowthMeasureService>();
+            measureService.ProcessFiles();
         }
 
         static IReadOnlyDictionary<string, string> DefaultConfigurationStrings { get; } =
