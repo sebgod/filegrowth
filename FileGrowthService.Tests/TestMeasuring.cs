@@ -120,7 +120,7 @@ namespace FileGrowthService.Tests
                 },
                 new object[]
                 {
-                    new DateTime(2015, 3, 26, 00, 56, 49, 909),
+                    new DateTime(2015, 3, 26, 0, 56, 49, 909),
                     4308267L,
                     30865.2
                 }
@@ -129,7 +129,7 @@ namespace FileGrowthService.Tests
             {
                 new object[]
                 {
-                    new DateTime(2015, 3, 25, 22, 59, 03, 931),
+                    new DateTime(2015, 3, 25, 22, 59, 3, 931),
                     7655472L,
                     null as double?
                 },

@@ -1,42 +1,24 @@
-﻿using Microsoft.Extensions.Configuration;
-using Moq;
+﻿using FileGrowthService.Csv;
+using FileGrowthService.File;
 using NUnit.Framework;
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FileGrowthService.Tests
 {
-    class TestCsvReader
+    class TestCsvReader : TestCsvBase
     {
-        private string _tempDir;
-
-        [SetUp]
-        public void Setup()
+        [TestCaseSource(nameof(SourceFacts))]
+        public void TestReadingCsvFromFile(object fact)
         {
-            _tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("D"));
-            Directory.CreateDirectory(_tempDir);
-        }
+            (var metaData, var fileStats) = ((FileMetaData, FileSizeStats))fact;
 
-        private Mock<IConfiguration> MockConfig
-        {
-            get
-            {
-                var configMock = new Mock<IConfiguration>();
-                configMock.SetupGet(p => p["WorkingDirectory"]).Returns(_tempDir);
-                return configMock;
-            }
-        }
+            IFileGrowthReaderProvider reader = new FileGrowthCsvReaderProvider(MockConfig, new FileStreamProvider());
 
-        [Test]
-        public void TestReading()
-        {
-            Assert.AreEqual(_tempDir, MockConfig.Object["WorkingDirectory"]);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            Directory.Delete(_tempDir, recursive: true);
+            Assert.That(reader.FileMap.Count, Is.EqualTo(1), "We expect one file during testing");
+            Assert.That(reader.FileMap.Values.Single(), Is.EqualTo(metaData), "Verify that file table is identical");
+            Assert.That(reader.FileSizeStatsMap.Values.Single(), Is.EqualTo(fileStats), "Verify that file table is identical");
         }
     }
 }

@@ -18,6 +18,7 @@
     <ProjectReference Include="..\FileGrowthService.Abstractions\FileGrowthService.Abstractions.csproj" />
     <ProjectReference Include="..\FileGrowthService.Csv\FileGrowthService.Csv.csproj" />
     <ProjectReference Include="..\FileGrowthService.App\FileGrowthService.App.csproj" />
+    <ProjectReference Include="..\FileGrowthService.File\FileGrowthService.File.csproj" />
   </ItemGroup>
 
 </Project>
