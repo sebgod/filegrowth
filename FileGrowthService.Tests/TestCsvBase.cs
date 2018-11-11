@@ -70,7 +70,7 @@ namespace FileGrowthService.Tests
 "
             };
 
-        protected static readonly object[] SourceFacts = new object[]
+        protected static readonly object[] FactTable = new object[]
         {
             (
                 new FileMetaData(1, "1.mdf"),
@@ -82,6 +82,15 @@ namespace FileGrowthService.Tests
                         [new DateTime(2015, 3, 25, 23, 55, 45, 787)] = 4276852L,
                         [new DateTime(2015, 3, 26, 0, 56, 49, 909)] = 4308267L,
                         [new DateTime(2015, 3, 26, 1, 59, 24, 107)] = 4366566L
+                    }
+                ),
+                new FileGrowthStats(
+                    1,
+                    new Dictionary<DateTime, double>()
+                    {
+                        [new DateTime(2015, 3, 25, 23, 55, 45, 787)] = 34291.5,
+                        [new DateTime(2015, 3, 26, 0, 56, 49, 909)] = 30865.2,
+                        [new DateTime(2015, 3, 26, 1, 59, 24, 107)] = 55904.5
                     }
                 )
             )
@@ -96,18 +105,5 @@ namespace FileGrowthService.Tests
 1,""1.mdf"",""2015-03-26 01:59:24.107"",4366566,55904.5
 "
             };
-
-        protected static readonly object[] OutputFacts = new object[]
-        {
-            new FileGrowthStats(
-                1,
-                new Dictionary<DateTime, double>()
-                {
-                    [new DateTime(2015, 3, 25, 23, 55, 45, 787)] = 34291.5,
-                    [new DateTime(2015, 3, 26, 0, 56, 49, 909)] = 30865.2,
-                    [new DateTime(2015, 3, 26, 1, 59, 24, 107)] = 55904.5
-                }
-            )
-        };
     }
 }

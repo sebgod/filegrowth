@@ -8,6 +8,6 @@ namespace FileGrowthService.File
             => System.IO.File.OpenRead(filePath);
 
         public Stream OpenWrite(string filePath)
-            => new FileStream(filePath, FileMode.Truncate, FileAccess.Write, FileShare.Read, 1024 * 10);
+            => new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read, 1024 * 10);
     }
 }
