@@ -1,7 +1,8 @@
 ﻿using FileGrowthService.Csv;
 using FileGrowthService.File;
 using NUnit.Framework;
-using System.Linq;
+using System.IO;
+using System.Text;
 
 namespace FileGrowthService.Tests
 {
@@ -15,6 +16,11 @@ namespace FileGrowthService.Tests
             IFileGrowthWriterProvider writer = new FileGrowthCsvWriterProvider(MockConfig, new FileStreamProvider());
 
             writer.WriteDenormalisedFileGrowthStats(metaData, fileSizeStats, fileGrowthStats);
+
+            var outPath = Path.Combine(WorkingDirectory, File1OutName);
+            var actualOutput = System.IO.File.ReadAllText(outPath, new UTF8Encoding(false));
+
+            Assert.That(actualOutput, Is.EqualTo(OutputFiles[File1OutName]));
         }
     }
 }

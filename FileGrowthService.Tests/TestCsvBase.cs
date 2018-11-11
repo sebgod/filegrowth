@@ -96,10 +96,11 @@ namespace FileGrowthService.Tests
             )
         };
 
+        protected const string File1OutName = "1.csv";
         protected static readonly IReadOnlyDictionary<string, string> OutputFiles =
             new Dictionary<string, string>()
             {
-                ["1.csv"] = @"""FileID"",""Name"",""Timestamp"",""SizeInBytes"",""GrowthRatesInBytesPerHour""
+                [File1OutName] = @"""FileID"",""Name"",""Timestamp"",""SizeInBytes"",""GrowthRatesInBytesPerHour""
 1,""1.mdf"",""2015-03-25 23:55:45.787"",4276852,34291.5
 1,""1.mdf"",""2015-03-26 00:56:49.909"",4308267,30865.2
 1,""1.mdf"",""2015-03-26 01:59:24.107"",4366566,55904.5
