@@ -1,7 +1,7 @@
 File Growth Service
 ===================
 
-This project demonstrates how a readable, composable, extensible and maintainable service can be created using the ]latest .NET Core framework](https://www.microsoft.com/net/download/dotnet-core/2.1).
+This project demonstrates how a readable, composable, extensible and maintainable service can be created using the [latest .NET Core framework](https://www.microsoft.com/net/download/dotnet-core/2.1).
 It is essential to update to at least version 2.1 otherwise unit testing might not work.
 The project relies on .NET Core integrated DI, which is heavily used by the ASP.NET Core framework and thus right-sized for this project.
 As this is a PoC project, emphasis is on correctness, readability and code coverage. Given the time constrains not every member has a proper code documation annotation.
