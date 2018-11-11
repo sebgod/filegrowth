@@ -80,6 +80,23 @@ namespace FileGrowthService.Tests
 
             // verify
             Assert.AreEqual(fileID, processedStats.FileID, "Verify that the file ID is carried over");
+            Assert.AreEqual(fileSizeStats.Count() - 1, processedStats.Count(), "Verify that we capture all points in time");
+            Assert.That(fileSizeStats.Skip(1).Select(p => p.Key), Is.EqualTo(processedStats.Select(p => p.Key)),
+                "Verify that we captured the exact time stamps in the right order (except the first one)");
+
+            var it = fileSizeStats.First();
+            foreach (var fileSizeStat in fileSizeStats.Skip(1))
+            {
+                var currentTimestamp = fileSizeStat.Key;
+                var growthRate = processedStats[currentTimestamp];
+                var calcFileSize = CalcNewFileSize(it.Value, fileSizeStat.Key - it.Key, growthRate);
+
+                Assert.AreEqual(fileSizeStat.Value, calcFileSize,
+                    "Verify that calculated file size based on hourly growth matches actual file size");
+
+                // for next step
+                it = fileSizeStat;
+            }
         }
 
         static KeyValuePair<DateTime, long> ConvertToKVPair(object[] timeAndSize)
