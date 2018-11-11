@@ -17,11 +17,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGrowthService.Abstracti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D38CB499-7096-4A1B-9E44-563A223F5B05}"
 	ProjectSection(SolutionItems) = preProject
+		build.cmd = build.cmd
+		clean.cmd = clean.cmd
 		Files.csv = Files.csv
 		FileStats.csv = FileStats.csv
+		Readme.md = Readme.md
+		run.cmd = run.cmd
+		test.cmd = test.cmd
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGrowthService.File", "FileGrowthService.File\FileGrowthService.File.csproj", "{CCCD0A9C-A7C7-4505-A1A6-F226C22AC160}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileGrowthService.File", "FileGrowthService.File\FileGrowthService.File.csproj", "{CCCD0A9C-A7C7-4505-A1A6-F226C22AC160}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
