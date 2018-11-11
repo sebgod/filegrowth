@@ -51,5 +51,8 @@ namespace FileGrowthService
 
         public static double CalcGrowthRate(TimeSpan deltaTime, long deltaSize)
             => deltaSize * MSPerHour / deltaTime.TotalMilliseconds;
+
+        public static double CalcNewFileSize(long currentSize, TimeSpan deltaTime, double growthRate)
+            => currentSize + growthRate * deltaTime.Ticks / TimeSpan.TicksPerHour;
     }
 }

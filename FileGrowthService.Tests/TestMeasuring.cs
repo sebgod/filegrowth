@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static FileGrowthService.FileGrowthMeasureProcessor;
 
 namespace FileGrowthService.Tests
@@ -19,6 +20,16 @@ namespace FileGrowthService.Tests
             return CalcGrowthRate(TimeSpan.FromTicks(deltaTimeTicks), deltaSize);
         }
 
+        [TestCase(1000, TimeSpan.TicksPerHour, 500.0, ExpectedResult = 1500.0)]
+        [TestCase(1000, 0, 100, ExpectedResult = 1000)]
+        [TestCase(500, TimeSpan.TicksPerMinute, 60, ExpectedResult = 501.0)]
+        [TestCase(600, TimeSpan.TicksPerHour * 3, -100.0, ExpectedResult = 300.0)]
+        [TestCase(125, TimeSpan.TicksPerHour * 2, 2d/3d, ExpectedResult = 126.0 + 1d/3d)]
+        public double TestCalcNewFileSIze(long currentSize, long deltaTimeTicks, double growthRate)
+        {
+            return CalcNewFileSize(currentSize, TimeSpan.FromTicks(deltaTimeTicks), growthRate);
+        }
+
         [TestCaseSource(nameof(FileGrowthFacts))]
         public void TestProcessGrowth(object[] timeAndSizes)
         {
@@ -30,7 +41,7 @@ namespace FileGrowthService.Tests
             {
                 // initialise
                 var timeAndSize = (object[])timeAndSizes[i];
-                var fact = new KeyValuePair<DateTime, long>((DateTime)timeAndSize[0], (long)timeAndSize[1]);
+                var fact = ConvertToKVPair(timeAndSize);
                 var deltaSize = timeAndSize[2] as double?;
 
                 // process
@@ -54,6 +65,25 @@ namespace FileGrowthService.Tests
                 }
             }
         }
+
+        [TestCaseSource(nameof(FileGrowthFacts))]
+        public void TestProcessFile(object[] timeAndSizes)
+        {
+            // initialise
+            var timeAndSize = timeAndSizes.Cast<object[]>().Select(ConvertToKVPair);
+            var fileID = new Random().Next();
+            var fileSizeStats = new FileSizeStats(fileID, new Dictionary<DateTime, long>(timeAndSize));
+            var processor = new FileGrowthMeasureProcessor();
+
+            // validate
+            var processedStats = processor.ProcessFile(fileSizeStats);
+
+            // verify
+            Assert.AreEqual(fileID, processedStats.FileID, "Verify that the file ID is carried over");
+        }
+
+        static KeyValuePair<DateTime, long> ConvertToKVPair(object[] timeAndSize)
+            => new KeyValuePair<DateTime, long>((DateTime)timeAndSize[0], (long)timeAndSize[1]);
 
         static readonly object[] FileGrowthFacts = new object[]
         {
