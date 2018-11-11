@@ -9,17 +9,22 @@ namespace FileGrowthService.Csv
 {
     public class FileGrowthCsvWriterProvider : IFileGrowthWriterProvider
     {
-        public FileGrowthCsvWriterProvider(IConfiguration configuration)
-            => Configuration = configuration;
+        public FileGrowthCsvWriterProvider(IConfiguration configuration, IFileStreamProvider fileStreamProvider)
+        {
+            Configuration = configuration;
+            FileStreamProvider = fileStreamProvider;
+        }
 
         IConfiguration Configuration { get; }
+
+        IFileStreamProvider FileStreamProvider { get; }
 
         public void WriteDenormalisedFileGrowthStats(FileMetaData metaData, FileSizeStats fileSizeStats, FileGrowthStats fileGrowthStats)
         {
             var utf8 =  new UTF8Encoding(false);
             var filePath = Path.Combine(Configuration["WorkingDirectory"], $"{metaData.FileID}.csv");
 
-            using (var fileStream = new FileStream(filePath, FileMode.Truncate, FileAccess.Write, FileShare.Read, 1024 * 10))
+            using (var fileStream = FileStreamProvider.OpenWrite(filePath))
             using (var textWriter = new StreamWriter(fileStream, utf8, 1024 * 10, leaveOpen: true))
             using (var csvWriter = new CsvWriter(textWriter, leaveOpen: true))
             {

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FileGrowthService
 {
-    using GrowthMap = System.Collections.Generic.Dictionary<DateTime, double>;
+    using GrowthMap = Dictionary<DateTime, double>;
 
     public class FileGrowthMeasureProcessor : IFileGrowthMeasureProcessor
     {

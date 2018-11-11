@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using FileGrowthService.Csv;
+using FileGrowthService.File;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,7 +21,8 @@ namespace FileGrowthService.App
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddSingleton<IConfiguration>(BuildConfiguration())
+                .AddSingleton(BuildConfiguration())
+                .AddTransient<IFileStreamProvider, FileStreamProvider>()
                 .AddTransient<IFileGrowthReaderProvider, FileGrowthCsvReaderProvider>()
                 .AddTransient<IFileGrowthWriterProvider, FileGrowthCsvWriterProvider>()
                 .AddTransient<IFileGrowthMeasureProcessor, FileGrowthMeasureProcessor>()

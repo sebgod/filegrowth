@@ -1,41 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using CsvHelper;
-using FileGrowthService;
 using Microsoft.Extensions.Configuration;
 
 namespace FileGrowthService.Csv
 {
     public class FileGrowthCsvReaderProvider : IFileGrowthReaderProvider
     {
-        public FileGrowthCsvReaderProvider(IConfiguration configuration)
+        public FileGrowthCsvReaderProvider(IConfiguration configuration, IFileStreamProvider fileStreamProvider)
         {
             var pwd = configuration["WorkingDirectory"];
             var fileIDPath = Path.Combine(pwd, configuration["FileIDName"]);
             var fileStatsPath = Path.Combine(pwd, configuration["FileStatsName"]);
         
             FileMap = ( 
-                from dto in ParseCSVFile<FileMetaDataDto>(fileIDPath)
+                from dto in ParseCSVFile<FileMetaDataDto>(fileStreamProvider, fileIDPath)
                 select new FileMetaData(dto.ID, dto.Name)
             ).ToDictionary(p => p.FileID, p => p);
             
             FileSizeStatsMap = (
-                from dto in ParseCSVFile<FileSizeStatsDto>(fileStatsPath)
+                from dto in ParseCSVFile<FileSizeStatsDto>(fileStreamProvider, fileStatsPath)
                 group dto by dto.FileID into g
                 select new FileSizeStats(g.Key, g.ToDictionary(p => p.Timestamp, p => p.SizeInBytes))
             ).ToDictionary(p => p.FileID, p => p);
         }
 
-        private IList<T> ParseCSVFile<T>(string filePath)
+        private IList<T> ParseCSVFile<T>(IFileStreamProvider fileStreamProvider, string filePath)
             where T : class, new()
         {
-            var utf8 =  new UTF8Encoding(false);
-
-            using (var fileStream = File.OpenRead(filePath))
-            using (var textReader = new StreamReader(fileStream, utf8,
+            using (var fileStream = fileStreamProvider.OpenRead(filePath))
+            using (var textReader = new StreamReader(
+                fileStream,
+                new UTF8Encoding(false),
                 detectEncodingFromByteOrderMarks: false,
                 bufferSize: 10 * 1024,
                 leaveOpen: true))
