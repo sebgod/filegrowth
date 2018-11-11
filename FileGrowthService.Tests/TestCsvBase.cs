@@ -53,8 +53,8 @@ namespace FileGrowthService.Tests
             }
         }
 
-        const string FileIDName = "Files.csv";
-        const string FileStatsName = "FileStats.csv";
+        protected const string FileIDName = "Files.csv";
+        protected const string FileStatsName = "FileStats.csv";
 
         protected static readonly IReadOnlyDictionary<string, string> SourceFiles =
             new Dictionary<string, string>()
@@ -106,5 +106,19 @@ namespace FileGrowthService.Tests
 1,""1.mdf"",""2015-03-26 01:59:24.107"",4366566,55904.5
 "
             };
+
+        protected IFileStreamProvider MockFileStreamProvider
+        {
+            get
+            {
+                var mock = new Mock<IFileStreamProvider>();
+                mock.Setup(m => m.OpenRead(It.IsAny<string>()))
+                    .Returns<string>(ReadStringAsBytes);
+                return mock.Object;
+            }
+        }
+ 
+        private static Stream ReadStringAsBytes(string name)
+            => new MemoryStream(new UTF8Encoding(false).GetBytes(SourceFiles[Path.GetFileName(name)]));
     }
 }
