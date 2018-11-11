@@ -1,8 +1,10 @@
 File Growth Service
 ===================
 
-This project demonstrates how a readable, composable, extensible and maintainable service can be created using the latest .NET Core framework.
-The project relies on .NET Core integrated DI, which is heavily used by the ASP.NET Core framework
+This project demonstrates how a readable, composable, extensible and maintainable service can be created using the ]latest .NET Core framework](https://www.microsoft.com/net/download/dotnet-core/2.1).
+It is essential to update to at least version 2.1 otherwise unit testing might not work.
+The project relies on .NET Core integrated DI, which is heavily used by the ASP.NET Core framework and thus right-sized for this project.
+As this is a PoC project, emphasis is on correctness, readability and code coverage. Given the time constrains not every member has a proper code documation annotation.
 
 ## Code layout
 
@@ -33,5 +35,13 @@ The code is composed of several sub projects:
   * [FileGrowthService.File](FileGrowthService.File)
     Is used by the CSV read/write implementation to open and save files.
   * [FileGrowthService.Tests](FileGrowthService.Tests)
-    Unit testing based on [NUnit](https://github.com/nunit/docs/wiki/NUnit-Documentation) and [Moq](https://github.com/moq/moq4/wiki/Quickstart) with :100: coverage of all
+    Unit testing based on [NUnit](https://github.com/nunit/docs/wiki/NUnit-Documentation) and [Moq](https://github.com/moq/moq4/wiki/Quickstart) with :100:% coverage of all
     DI interfaces in [FileGrowthService.Abstractions](FileGrowthService.Abstractions) and the corresponding implementations.
+    
+## Build instructions
+
+Either use [Visual Studio Code](https://code.visualstudio.com/) and open the project at the project root,
+or [Visual Studio 2017 15.8](https://visualstudio.microsoft.com/vs/) to open the [solution file](FileGrowth.sln).
+Command line building is also supported by running [build.cmd](build.cmd).
+Additional commands supplied are [run.cmd](run.cmd), which runs the [FileGrowthConsoleApp](FileGrowthConsoleApp),
+[clean.cmd](clean.cmd), which deletes all generated CSV files and build artifacts, and [test.cmd](test.cmd) which runs the NUnit test suite.
