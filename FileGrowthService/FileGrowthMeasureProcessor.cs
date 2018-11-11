@@ -40,9 +40,10 @@ namespace FileGrowthService
             return (newTimestamp, newSize, growthMap);
         }
 
-        private static readonly double MSPerHour = (double) TimeSpan.FromHours(1).TotalMilliseconds;
+        private static readonly double MSPerHour =
+            TimeSpan.FromHours(1).TotalMilliseconds;
 
-        public static double CalcGrowthRate(TimeSpan deltaTime, long deltaDiff)
-            => deltaDiff * MSPerHour / deltaTime.TotalMilliseconds;
+        public static double CalcGrowthRate(TimeSpan deltaTime, long deltaSize)
+            => deltaSize * MSPerHour / deltaTime.TotalMilliseconds;
     }
 }
