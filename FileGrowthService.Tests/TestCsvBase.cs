@@ -57,7 +57,7 @@ namespace FileGrowthService.Tests
         protected const string FileStatsName = "FileStats.csv";
 
         protected static readonly IReadOnlyDictionary<string, string> SourceFiles =
-            new Dictionary<string, string>()
+            new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
                 [FileIDName] = @"""ID"",""Name""
 1,""1.mdf""
@@ -98,7 +98,7 @@ namespace FileGrowthService.Tests
 
         protected const string File1OutName = "1.csv";
         protected static readonly IReadOnlyDictionary<string, string> OutputFiles =
-            new Dictionary<string, string>()
+            new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
                 [File1OutName] = @"""FileID"",""Name"",""Timestamp"",""SizeInBytes"",""GrowthRatesInBytesPerHour""
 1,""1.mdf"",""2015-03-25 23:55:45.787"",4276852,34291.5
