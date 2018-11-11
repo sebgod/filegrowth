@@ -5,6 +5,12 @@ This project demonstrates how a readable, composable, extensible and maintainabl
 It is essential to update to at least version 2.1 otherwise unit testing might not work.
 The project relies on .NET Core integrated DI, which is heavily used by the ASP.NET Core framework and thus right-sized for this project.
 As this is a PoC project, emphasis is on correctness, readability and code coverage. Given the time constrains not every member has a proper code documation annotation.
+[Verification of correctness](https://github.com/sebgod/filegrowth/blob/master/FileGrowthService.Tests/TestMeasuring.cs#L51) is done by not only testing if the expected output is generated (as given in the instructions),
+but also by applying the inverse calculation (i.e. estimating the new file size given the last file size and the delta time).
+
+Of course there is ample of space for further improvement, e.g. a different estimator, graphical output, ReST API etc. could be added.
+The intention is that the current implementation is flexible enough to add those at a later stage.
+I hope this effort is what was asked for in the problem description; in any case I learned a lot on the way.
 
 ## Code layout
 
