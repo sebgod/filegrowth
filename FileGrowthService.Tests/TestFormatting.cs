@@ -14,6 +14,7 @@ namespace FileGrowthService.Tests
             return FileGrowthCsvWriterProvider.FormatHourlyGrowthRate(rate);
         }
 
+        [Test]
         public void TestFormatHourlyGrowthRateExact()
         {
             var result = FileGrowthCsvWriterProvider.FormatTime(new DateTime(2015, 3, 25, 23, 0, 16, 902));

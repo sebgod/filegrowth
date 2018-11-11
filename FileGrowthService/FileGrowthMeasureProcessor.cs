@@ -8,7 +8,6 @@ namespace FileGrowthService
 
     public class FileGrowthMeasureProcessor : IFileGrowthMeasureProcessor
     {
-        
         public FileGrowthStats ProcessFile(FileSizeStats stats)
         {
             return stats.Aggregate(
@@ -22,7 +21,14 @@ namespace FileGrowthService
             );
         }
 
-        
+        /// <summary>
+        /// Does the actual measurement of file growth by using a lookbehind of one point in time.
+        /// Growth rate is expressed in bytes per hour, thus extrapolated from the delta of the last and current measurement of actual file size.
+        /// </summary>
+        /// <param name="last">tuple of last recorded time stamp (is null for first record),
+        /// file size, and a reference to the mapping of all file growth deltas per timestamp</param>
+        /// <param name="current">current measurement of file size at a point in time</param>
+        /// <returns>tuple with aggregated measurement information</returns>
         public static (DateTime? timestamp, long size, GrowthMap growth) ProcessGrowth(
             (DateTime? timestamp, long size, GrowthMap growth) last,
             KeyValuePair<DateTime, long> current)
